@@ -10,7 +10,6 @@ export default class App extends React.Component {
       type: "mastercard",
       exp: "xx/xx",
       cvv: "",
-      oldValue: "",
       selectStart: 0,
       selectEnd: 0
     };
@@ -22,10 +21,7 @@ export default class App extends React.Component {
     this.inputExp = this.inputExp.bind(this);
     this.inputCVV = this.inputCVV.bind(this);
     
-    this.name = React.createRef();
     this.number = React.createRef();
-    this.exp = React.createRef();
-    this.cvv = React.createRef();
   }
 
   random(min, max) {
@@ -225,7 +221,6 @@ export default class App extends React.Component {
   keyDown(e) {
     let t = e.target;
     this.setState({
-      oldValue: t.value,
       selectStart: t.selectionStart,
       selectEnd: t.selectionEnd
     });
@@ -264,7 +259,7 @@ export default class App extends React.Component {
         <form className="form">
           <div className="input-line">
             <label htmlFor="name">Name</label>
-            <input ref={this.name} id="name" type="text" defaultValue={this.state.name} placeholder="Bruce Wayne" autoComplete="off" onKeyDown={this.keyDown} onInput={this.inputName}></input>
+            <input id="name" type="text" defaultValue={this.state.name} placeholder="Bruce Wayne" autoComplete="off" onKeyDown={this.keyDown} onInput={this.inputName}></input>
           </div>
           <div className="input-line">
             <button type="button" className="generate" onClick={this.generate}>generate random</button>
@@ -275,11 +270,11 @@ export default class App extends React.Component {
           <div className="input-line split">
             <div className="input-line">
               <label htmlFor="expiration">Expiration (mm/yy)</label>
-              <input ref={this.exp} id="expiration" type="text" className={expClass} defaultValue="xx/xx" placeholder="05/20" autoComplete="off" onKeyDown={this.keyDown} onInput={this.inputExp}></input>
+              <input id="expiration" type="text" className={expClass} defaultValue="xx/xx" placeholder="05/20" autoComplete="off" onKeyDown={this.keyDown} onInput={this.inputExp}></input>
             </div>
             <div className="input-line">
               <label htmlFor="cvv">Security Code</label>
-              <input ref={this.cvv} id="cvv" type="password" defaultValue="" placeholder="123" maxLength={3} onKeyDown={this.keyDown} onInput={this.inputCVV}></input>
+              <input id="cvv" type="password" defaultValue="" placeholder="123" maxLength={3} onKeyDown={this.keyDown} onInput={this.inputCVV}></input>
             </div>
           </div>
         </form>

@@ -11,7 +11,8 @@ export default class App extends React.Component {
       exp: "xx/xx",
       cvv: "",
       selectStart: 0,
-      selectEnd: 0
+      selectEnd: 0,
+      keyCode: 0
     };
     
     this.generate = this.generate.bind(this);
@@ -85,7 +86,6 @@ export default class App extends React.Component {
 
   maskExp(value,unmaskStartPos) {
     let newValue = "";
-
     for(var i = 0; i < 4; i++) {
       if(i > 0 && i % 2 === 0) {
         newValue += "/";
@@ -96,6 +96,8 @@ export default class App extends React.Component {
       }
       else newValue += "x";
     }
+    newValue = (newValue+"x").substr(0,5);
+    
     return newValue;
   }
 
@@ -143,6 +145,7 @@ export default class App extends React.Component {
       type: this.getTypeByFirstDigit(parseInt(newValue.substr(0,1)))
     }, () => {
       el.value = newValue;
+      if(this.state.keyCode===8) newCursorPosition = selectStart-1;
       el.setSelectionRange(newCursorPosition, newCursorPosition);
     });
   }
@@ -173,6 +176,7 @@ export default class App extends React.Component {
       name: newValue
     }, () => {
       el.value = newValue;
+      if(this.state.keyCode===8) newCursorPosition = selectStart-1;
       el.setSelectionRange(newCursorPosition, newCursorPosition);
     });
   }
@@ -198,6 +202,7 @@ export default class App extends React.Component {
       exp: newValue
     }, () => {
       el.value = newValue;
+      if(this.state.keyCode===8) newCursorPosition = selectStart-1;
       el.setSelectionRange(newCursorPosition, newCursorPosition);
     });
   }
@@ -220,9 +225,12 @@ export default class App extends React.Component {
 
   keyDown(e) {
     let t = e.target;
+    let selectStart = t.selectionStart;
+    let selectEnd = t.selectionEnd;
     this.setState({
-      selectStart: t.selectionStart,
-      selectEnd: t.selectionEnd
+      selectStart: selectStart,
+      selectEnd: selectEnd,
+      keyCode: e.keyCode
     });
   }
 

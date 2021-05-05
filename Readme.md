@@ -1,8 +1,3 @@
-## Answers to Recruitment Test
-
-#### Josua L H H Sihombing
-#### April 18 2021, done on 6pm
-
 ### Credit card UI
 
 Files in `/creditcard`
